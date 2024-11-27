@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Snake Game</h1>
+        
+        <div class="mode-selector">
+            <button class="mode-btn active" data-mode="basic">Basic Mode</button>
+            <button class="mode-btn" data-mode="powerup">Power-Up Mode</button>
+            <button class="mode-btn" data-mode="twoplayer">Two Player Mode</button>
+        </div>
+
+        <div class="game-container">
+            <!-- Single player modes -->
+            <div id="single-player" class="game-mode active">
+                <div class="game-info">
+                    <div class="controls">
+                        <h3>Controls</h3>
+                        <p>Use arrow keys to move the snake</p>
+                    </div>
+                    <div class="high-score">High Score: <span id="high-score">0</span></div>
+                </div>
+                <canvas id="gameCanvas" width="400" height="400"></canvas>
+            </div>
+
+            <!-- Two player mode -->
+            <div id="two-player" class="game-mode">
+                <div class="players-container">
+                    <div class="player">
+                        <h3>Player 1</h3>
+                        <div class="controls">
+                            <p>Use WASD keys to move</p>
+                        </div>
+                        <canvas id="player1Canvas" width="400" height="400"></canvas>
+                    </div>
+                    <div class="player">
+                        <h3>Player 2</h3>
+                        <div class="controls">
+                            <p>Use arrow keys to move</p>
+                        </div>
+                        <canvas id="player2Canvas" width="400" height="400"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="power-up-legend" id="powerUpLegend">
+            <h3>Power-Ups</h3>
+            <div class="power-up-item">
+                <div class="power-up-color" style="background-color: #FFD700;"></div>
+                <span>Speed Boost</span>
+            </div>
+            <div class="power-up-item">
+                <div class="power-up-color" style="background-color: #87CEEB;"></div>
+                <span>Ghost Mode</span>
+            </div>
+            <div class="power-up-item">
+                <div class="power-up-color" style="background-color: #FF69B4;"></div>
+                <span>Double Growth</span>
+            </div>
+        </div>
+
+        <button id="startBtn" class="start-btn">Start Game</button>
+        <button id="restartBtn" class="restart-btn hidden">Restart Game</button>
+    </div>
+
+    <script src="utils.js"></script>
+    <script src="basicMode.js"></script>
+    <script src="powerUpMode.js"></script>
+    <script src="twoPlayerMode.js"></script>
+    <script src="main.js"></script>
+    <script src="snake-game.js"></script>
+
+</body>
+</html>
