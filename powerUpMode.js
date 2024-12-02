@@ -14,31 +14,31 @@ class PowerUpGame extends BasicGame {
                 duration: 3000, 
                 effect: () => this.snake.abilities.add('ghost') 
             },
-            double: { 
-                color: '#FF69B4', 
-                duration: 4000, 
-                effect: () => this.snake.growing = true 
-            },
+            // double: { 
+            //     color: '#FF69B4', 
+            //     duration: 4000, 
+            //     effect: () => this.snake.growing = true 
+            // },
             slow: { 
                 color: '#8A2BE2', 
                 duration: 5000, 
                 effect: () => this.setGameSpeed(200) 
             },
-            wallPass: { 
-                color: '#00FA9A', 
-                duration: 5000, 
-                effect: () => this.snake.abilities.add('wallPass') 
-            },
+            // wallPass: { 
+            //     color: '#00FA9A', 
+            //     duration: 5000, 
+            //     effect: () => this.snake.abilities.add('wallPass') 
+            // },
             freeze: { 
                 color: '#DC143C', 
                 duration: 3000, 
                 effect: () => this.freezeGame() 
             },
-            doublePoints: { 
-                color: '#FFDAB9', 
-                duration: 10000, 
-                effect: () => this.doublePointsMode() 
-            }
+            // doublePoints: { 
+            //     color: '#FFDAB9', 
+            //     duration: 10000, 
+            //     effect: () => this.doublePointsMode() 
+            // }
         };
     }
 
