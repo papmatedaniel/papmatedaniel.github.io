@@ -21,39 +21,49 @@
             <!-- <button onclick="window.location.href='twoPlayerMode.html'">Two Player Mode</button> -->
         </div>
 
-        <div class="game-container">
-            <!-- Single player modes -->
-            <div id="single-player" class="game-mode active">
-                <div class="game-info">
-                    <div class="controls">
-                        <h3>Irányítás</h3>
-                        <p>A nyilakkal vezéreld a kígyót</p>
-                    </div>
-                    <div class="high-score">Legmagasabb elért pontszám <span id="high-score">0</span></div>
-                </div>
-                <canvas id="gameCanvas" width="400" height="400"></canvas>
+<div class="game-container">
+    <!-- Single player modes -->
+    <div id="single-player" class="game-mode active">
+        <div class="game-info">
+            <div class="controls">
+                <h3>Irányítás</h3>
+                <p>A nyilakkal vezéreld a kígyót</p>
             </div>
+            <div class="high-score">Legmagasabb elért pontszám <span id="high-score">0</span></div>
+        </div>
+        <canvas id="gameCanvas" width="400" height="400"></canvas>
 
-            <!-- Two player mode -->
-            <div id="two-player" class="game-mode">
-                <div class="players-container">
-                    <div class="player">
-                        <h3>Játékos 1</h3>
-                        <div class="controls">
-                            <p>A WASD gombokkal irányítsd a kígyót</p>
-                        </div>
-                        <canvas id="player1" width="400" height="400"></canvas>
-                    </div>
-                    <div class="player">
-                        <h3>Játékos 2</h3>
-                        <div class="controls">
-                            <p>A nyilakkal irányítsd a kígyót</p>
-                        </div>
-                        <canvas id="player2" width="400" height="400"></canvas>
-                    </div>
-                </div>
+        <!-- Power-Up Legend moved here -->
+        <div class="power-up-legend" id="powerUpLegend">
+            <h3>Power-Ups</h3>
+            <div class="power-up-item">
+                <div class="power-up-color" style="background-color: #FFD700;"></div>
+                <span>Sebesség bónusz</span>
+            </div>
+            <div class="power-up-item">
+                <div class="power-up-color" style="background-color: #87CEEB;"></div>
+                <span>Szellemmód (nem kap pontot)</span>
+            </div>
+            <div class="power-up-item">
+                <div class="power-up-color" style="background-color: #FF69B4;"></div>
+                <span>Dupla növekedés</span>
+            </div>
+            <div class="power-up-item">
+                <div class="power-up-color" style="background-color: #8A2BE2;"></div>
+                <span>Lassító bónusz</span>
+            </div>
+            <div class="power-up-item">
+                <div class="power-up-color" style="background-color: #DC143C;"></div>
+                <span>Fagyasztó x ideig</span>
+            </div>
+            <div class="power-up-item">
+                <div class="power-up-color" style="background-color: #FFDAB9;"></div>
+                <span>Pont Duplázó</span>
             </div>
         </div>
+    </div>
+</div>
+
         <button id="startBtn" class="start-btn hidden">Indítás</button>
         <button id="restartBtn" class="restart-btn">Újraindítás</button>
 
