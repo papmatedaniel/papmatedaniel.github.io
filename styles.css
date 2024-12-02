@@ -10,7 +10,7 @@ body {
     color: #ffffff;
     min-height: 100vh;
     display: flex;
-    justify-content: center;
+    /*justify-content: center;*/
     align-items: center;
 }
 
@@ -53,8 +53,8 @@ h1 {
 }
 
 .game-container {
-    display: flex;
-    justify-content: center;
+    /*display: flex;
+    justify-content: center;*/
     margin-bottom: 30px;
 }
 
@@ -71,6 +71,7 @@ canvas {
     border: 3px solid #4CAF50;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
+    margin-left: 400px;
 }
 
 .players-container {
@@ -105,6 +106,10 @@ canvas {
 }
 
 .power-up-legend {
+    position: absolute;
+    top: 350px;
+    left: 100px;
+    height: 230px;
     display: none;
     margin: 20px auto;
     padding: 15px;
@@ -119,10 +124,9 @@ canvas {
 
 .power-up-item {
     display: flex;
-    align-items: center;
     margin: 10px 0;
     gap: 10px;
-    justify-content: center;
+    align-items: left;
 }
 
 .power-up-color {
@@ -140,6 +144,9 @@ canvas {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    margin-right: 680px;
+    position: relative;
+    top: -80px;
 }
 
 .start-btn:hover, .restart-btn:hover {
