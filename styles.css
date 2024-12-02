@@ -10,7 +10,8 @@ body {
     color: #ffffff;
     min-height: 100vh;
     display: flex;
-    /*justify-content: center;*/
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
 
@@ -27,6 +28,14 @@ h1 {
     text-transform: uppercase;
     letter-spacing: 2px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Visszaállított stílus az irányítás szövegre */
+.instructions {
+    margin: 15px 0;
+    font-size: 1rem;
+    color: #cccccc;
+    line-height: 1.5;
 }
 
 .mode-selector {
@@ -53,9 +62,12 @@ h1 {
 }
 
 .game-container {
-    /*display: flex;
-    justify-content: center;*/
-    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    flex-direction: column;
+    gap: 20px; /* Térköz a pálya és az újraindítás gomb között */
 }
 
 .game-mode {
@@ -71,51 +83,25 @@ canvas {
     border: 3px solid #4CAF50;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
-    margin-left: 400px;
 }
 
-.players-container {
-    display: flex;
-    gap: 40px;
-}
-
-.player {
-    text-align: center;
-}
-
-.player h3 {
-    margin-bottom: 10px;
-    color: #4CAF50;
-}
-
-.controls {
-    margin: 15px 0;
-    padding: 10px;
-    background-color: #333;
-    border-radius: 5px;
-}
-
-.game-info {
-    margin-bottom: 20px;
-}
-
+/* Legmagasabb pontszám színének visszaállítása */
 .high-score {
-    font-size: 1.2em;
-    color: #FFD700;
-    margin-top: 10px;
+    font-size: 1.2rem;
+    color: #FFD700; /* Sárga szín */
+    margin: 15px 0;
 }
 
 .power-up-legend {
     position: absolute;
-    top: 350px;
-    left: 100px;
-    height: 230px;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 20px; /* Közelebb hozza a pályához */
+    width: 250px;
     display: none;
-    margin: 20px auto;
     padding: 15px;
     background-color: #333;
     border-radius: 5px;
-    max-width: 300px;
 }
 
 .power-up-legend.active {
@@ -124,15 +110,16 @@ canvas {
 
 .power-up-item {
     display: flex;
+    align-items: center;
     margin: 10px 0;
     gap: 10px;
-    align-items: left;
 }
 
 .power-up-color {
     width: 20px;
     height: 20px;
     border-radius: 50%;
+    flex-shrink: 0;
 }
 
 .start-btn, .restart-btn {
@@ -144,9 +131,6 @@ canvas {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
-    margin-right: 680px;
-    position: relative;
-    top: -80px;
 }
 
 .start-btn:hover, .restart-btn:hover {
@@ -159,14 +143,14 @@ canvas {
 
 /* Responsive Design */
 @media (max-width: 1000px) {
-    .players-container {
+    .game-container {
         flex-direction: column;
-        gap: 20px;
     }
 
-    canvas {
-        max-width: 100%;
-        height: auto;
+    .power-up-legend {
+        position: static;
+        margin-top: 20px;
+        width: auto;
     }
 }
 
