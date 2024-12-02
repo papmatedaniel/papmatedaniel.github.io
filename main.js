@@ -72,11 +72,9 @@ restartBtn.addEventListener('click', () => {
 
 function stopGame() {
     if (currentGame) {
-        // Töröld az időzítőt
-        if (currentGame.gameLoop) {
-            clearInterval(currentGame.gameLoop);
-        }
-        // Reset állapot
+        clearInterval(currentGame.gameLoop); // Pontos időzítő törlése
+        currentGame.removeEventListeners();
         currentGame.reset();
+        currentGame = null;
     }
 }
