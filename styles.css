@@ -55,7 +55,17 @@ h1 {
 .game-container {
     display: flex;
     justify-content: center;
+    align-items: flex-start;
+    gap: 20px; /* Távolság a játék és a képességek között */
     margin-bottom: 30px;
+}
+
+canvas {
+    background-color: #000;
+    border: 3px solid #4CAF50;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
+    flex: 0 0 auto; /* Ne nyúljon meg a vászon */
 }
 
 .game-mode {
@@ -64,13 +74,6 @@ h1 {
 
 .game-mode.active {
     display: block;
-}
-
-canvas {
-    background-color: #000;
-    border: 3px solid #4CAF50;
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
 }
 
 .players-container {
@@ -105,24 +108,20 @@ canvas {
 }
 
 .power-up-legend {
-    display: none;
-    margin: 20px auto;
-    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 10px;
     background-color: #333;
     border-radius: 5px;
-    max-width: 300px;
-}
-
-.power-up-legend.active {
-    display: block;
+    padding: 15px;
+    width: 200px; /* Fix szélesség a jobb oldali panelnek */
 }
 
 .power-up-item {
     display: flex;
     align-items: center;
-    margin: 10px 0;
     gap: 10px;
-    justify-content: center;
 }
 
 .power-up-color {
@@ -152,9 +151,13 @@ canvas {
 
 /* Responsive Design */
 @media (max-width: 1000px) {
-    .players-container {
+    .game-container {
         flex-direction: column;
-        gap: 20px;
+        align-items: center;
+    }
+
+    .power-up-legend {
+        width: 100%; /* Igazodik a képernyő szélességéhez */
     }
 
     canvas {
