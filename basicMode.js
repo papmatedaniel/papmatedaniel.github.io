@@ -1,4 +1,3 @@
-// basicMode.js - Basic snake game
 class BasicGame {
     constructor(canvasId) {
         this.canvas = document.getElementById(canvasId);
@@ -12,15 +11,22 @@ class BasicGame {
     }
 
     generateFood() {
-        return {
-            x: Math.floor(Math.random() * GRID_SIZE),
-            y: Math.floor(Math.random() * GRID_SIZE),
-            color: '#FF0000'
-        };
+        let food;
+        do {
+            food = {
+                x: Math.floor(Math.random() * GRID_SIZE),
+                y: Math.floor(Math.random() * GRID_SIZE),
+                color: '#FF0000'
+            };
+        } while (this.snake.body.some(segment => segment.x === food.x && segment.y === food.y));
+        return food;
     }
 
     setupEventListeners() {
-        document.addEventListener('keydown', (e) => {
+        if (this.keydownHandler) {
+            document.removeEventListener('keydown', this.keydownHandler);
+        }
+        this.keydownHandler = (e) => {
             switch(e.key) {
                 case 'ArrowUp':
                     if (this.snake.direction !== 'down') this.snake.direction = 'up';
@@ -35,8 +41,10 @@ class BasicGame {
                     if (this.snake.direction !== 'left') this.snake.direction = 'right';
                     break;
             }
-        });
+        };
+        document.addEventListener('keydown', this.keydownHandler);
     }
+
 
     update() {
         if (this.gameOver) return;
@@ -86,7 +94,7 @@ class BasicGame {
         // Draw score
         this.ctx.fillStyle = '#ffffff';
         this.ctx.font = '20px Arial';
-        this.ctx.fillText(`Score: ${this.score}`, 10, 30);
+        this.ctx.fillText(`Pontszám: ${this.score}`, 10, 30);
 
         if (this.gameOver) {
             this.ctx.fillStyle = '#ff0000';
@@ -96,9 +104,16 @@ class BasicGame {
     }
 
     reset() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.snake = new Snake(5, 5);
         this.food = this.generateFood();
         this.score = 0;
         this.gameOver = false;
     }
+
+    
+    removeEventListeners() {
+    document.removeEventListener('keydown', this.keydownHandler);
+  }
+
 }
