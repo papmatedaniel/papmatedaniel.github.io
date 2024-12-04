@@ -1,8 +1,8 @@
-// powerUpMode.js - Game mode with special abilities
 class PowerUpGame extends BasicGame {
     constructor(canvasId) {
         super(canvasId);
         this.powerUps = [];
+        this.activeTimeouts = []; // Aktív időzítők listája
         this.powerUpTypes = {
             speed: { 
                 color: '#FFD700', 
@@ -14,31 +14,21 @@ class PowerUpGame extends BasicGame {
                 duration: 3000, 
                 effect: () => this.snake.abilities.add('ghost') 
             },
-            // double: { 
-            //     color: '#FF69B4', 
-            //     duration: 4000, 
-            //     effect: () => this.snake.growing = true 
-            // },
             slow: { 
                 color: '#8A2BE2', 
                 duration: 5000, 
                 effect: () => this.setGameSpeed(200) 
             },
-            // wallPass: { 
-            //     color: '#00FA9A', 
-            //     duration: 5000, 
-            //     effect: () => this.snake.abilities.add('wallPass') 
-            // },
+            wallPass: { 
+                color: '#00FA9A', 
+                duration: 5000, 
+                effect: () => this.snake.abilities.add('wallPass') 
+            },
             freeze: { 
                 color: '#DC143C', 
                 duration: 3000, 
                 effect: () => this.freezeGame() 
-            },
-            // doublePoints: { 
-            //     color: '#FFDAB9', 
-            //     duration: 10000, 
-            //     effect: () => this.doublePointsMode() 
-            // }
+            }
         };
     }
 
@@ -60,56 +50,85 @@ class PowerUpGame extends BasicGame {
             this.draw();
         }, speed);
 
-        setTimeout(() => {
+        const timeoutId = setTimeout(() => {
             clearInterval(this.gameLoop);
             this.gameLoop = setInterval(() => {
                 this.update();
                 this.draw();
             }, GAME_SPEED);
         }, this.powerUpTypes.speed.duration);
+
+        this.activeTimeouts.push(timeoutId); // Időzítő mentése
     }
 
     freezeGame() {
         clearInterval(this.gameLoop);
-        setTimeout(() => {
+        const timeoutId = setTimeout(() => {
             this.gameLoop = setInterval(() => {
                 this.update();
                 this.draw();
             }, GAME_SPEED);
-        }, 3000); // 3 seconds freeze
+        }, 3000);
+
+        this.activeTimeouts.push(timeoutId); // Időzítő mentése
     }
 
-    doublePointsMode() {
-        this.snake.abilities.add('doublePoints');
-        setTimeout(() => {
-            this.snake.abilities.delete('doublePoints');
-        }, this.powerUpTypes.doublePoints.duration);
+    clearActiveTimeouts() {
+        this.activeTimeouts.forEach(timeoutId => clearTimeout(timeoutId));
+        this.activeTimeouts = [];
+    }
+
+    resetGame() {
+        this.clearActiveTimeouts(); // Minden aktív időzítő törlése
+        this.powerUps = [];
+        if (this.snake) {
+            this.snake.abilities.clear();
+        }
+
+        clearInterval(this.gameLoop);
+        this.gameLoop = setInterval(() => {
+            this.update();
+            this.draw();
+        }, GAME_SPEED);
+
+        this.snake = new Snake();
+        this.food = {
+            x: Math.floor(Math.random() * GRID_SIZE),
+            y: Math.floor(Math.random() * GRID_SIZE)
+        };
+
+        for (let i = 0; i < 3; i++) {
+            this.powerUps.push(this.generatePowerUp());
+        }
+
+        this.gameOver = false;
+        this.score = 0;
     }
 
     update() {
         super.update();
         if (this.gameOver) return;
 
-        // Generate power-up occasionally
-        if (Math.random() < 0.01 && this.powerUps.length < 3) {
+        // Power-up generálása gyakrabban
+        if (Math.random() < 0.05 && this.powerUps.length < 3) {
             this.powerUps.push(this.generatePowerUp());
         }
 
-        // Check power-up collisions
         const head = this.snake.body[0];
         this.powerUps = this.powerUps.filter(powerUp => {
             if (head.x === powerUp.x && head.y === powerUp.y) {
                 const type = this.powerUpTypes[powerUp.type];
                 type.effect();
-                setTimeout(() => {
+                const timeoutId = setTimeout(() => {
                     this.snake.abilities.delete(powerUp.type);
                 }, type.duration);
+
+                this.activeTimeouts.push(timeoutId); // Időzítő mentése
                 return false;
             }
             return true;
         });
 
-        // Handle wall passing
         if (this.snake.abilities.has('wallPass')) {
             if (head.x < 0) head.x = GRID_SIZE - 1;
             else if (head.x >= GRID_SIZE) head.x = 0;
@@ -125,7 +144,6 @@ class PowerUpGame extends BasicGame {
     draw() {
         super.draw();
 
-        // Draw power-ups
         this.powerUps.forEach(powerUp => {
             this.ctx.fillStyle = powerUp.color;
             this.ctx.fillRect(
