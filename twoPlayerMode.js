@@ -87,7 +87,7 @@ function gameLoop() {
     draw(ctx1, snake1, apple1);
     draw(ctx2, snake2, apple2);
 
-    setTimeout(gameLoop, 150);
+    setTimeout(gameLoop, 100);
 }
 
 // Billentyűzetes vezérlés
